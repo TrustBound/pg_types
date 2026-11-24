@@ -17,8 +17,10 @@ prop_line_segment_codec() ->
             proper_lib:codec(pg_line_segment, [],
                              #{point1 => P1, point2 => P2})).
 
-%% prop_box_codec() ->
-%%     not_implemented.
+prop_box_codec() ->
+    ?FORALL({P1, P2}, {point(), point()},
+            proper_lib:codec(pg_box, [],
+                             #{point1 => P1, point2 => P2})).
 
 prop_path_codec() ->
     ?FORALL({Open, Points},
