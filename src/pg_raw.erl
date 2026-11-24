@@ -13,7 +13,7 @@ init(_Opts) ->
     {[<<"bpcharsend">>, <<"textsend">>,
       <<"varcharsend">>, <<"charsend">>,
       <<"byteasend">>, <<"unknownsend">>,
-      <<"citextsend">>], []}.
+      <<"citextsend">>, <<"xml_send">>], []}.
 
 encode(Text, _) ->
     [<<(iolist_size(Text)):?int32>>, Text].
