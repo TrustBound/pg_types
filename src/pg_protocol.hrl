@@ -9,5 +9,6 @@
 
 -define(uint16, 1/big-unsigned-unit:16).
 -define(uint32, 1/big-unsigned-unit:32).
+-define(uint64, 1/big-unsigned-unit:64).
 
 -define(badarg(Reason), {badarg, {?MODULE, Reason}}).
