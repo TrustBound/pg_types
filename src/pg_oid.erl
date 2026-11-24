@@ -14,7 +14,9 @@
 init(_Opts) ->
     {[<<"idsend">>, <<"regprocsend">>, <<"regproceduresend">>,
       <<"regopersend">>, <<"regoperatorsend">>, <<"regclasssend">>,
-      <<"regtypesend">>, <<"xidsend">>, <<"cidsend">>], []}.
+      <<"regtypesend">>, <<"xidsend">>, <<"cidsend">>,
+      <<"regnamespacesend">>, <<"regrolesend">>, <<"regconfigsend">>,
+      <<"regdictionarysend">>, <<"regcollationsend">>], []}.
 
 encode(Oid, _) when Oid >= 0 andalso Oid =< ?OID_MAX ->
     <<4:?int32, Oid:?uint32>>.
