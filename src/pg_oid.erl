@@ -19,8 +19,8 @@ init(_Opts) ->
 encode(Oid, _) when Oid >= 0 andalso Oid =< ?OID_MAX ->
     <<4:?int32, Oid:?uint32>>.
 
-decode(Name, _) ->
-    Name.
+decode(<<Oid:?uint32>>, _) ->
+    Oid.
 
 type_spec() ->
     "Oid::0..4294967295".
