@@ -16,16 +16,26 @@
 init(_Opts) ->
     {[<<"interval_send">>], []}.
 
+%% PostgreSQL 17 and later: an infinite interval has all three fields at the
+%% largest or at the smallest integer
+encode(infinity, _) ->
+    <<16:?int32, 16#7FFFFFFFFFFFFFFF:?int64, 16#7FFFFFFF:?int32, 16#7FFFFFFF:?int32>>;
+encode('-infinity', _) ->
+    <<16:?int32, -16#8000000000000000:?int64, -16#80000000:?int32, -16#80000000:?int32>>;
 encode({interval, {T, D, M}}, _) ->
     <<16:?int32, (pg_time:encode_time(T)):?int64, D:?int32, M:?int32>>;
 encode({T, D, M}, _) ->
     <<16:?int32, (pg_time:encode_time(T)):?int64, D:?int32, M:?int32>>.
 
+decode(<<16#7FFFFFFFFFFFFFFF:?int64, 16#7FFFFFFF:?int32, 16#7FFFFFFF:?int32>>, _) ->
+    infinity;
+decode(<<-16#8000000000000000:?int64, -16#80000000:?int32, -16#80000000:?int32>>, _) ->
+    '-infinity';
 decode(<<Microseconds:?int64, Days:?int32, Months:?int32>>, _) ->
     {interval, {decode_interval_time(Microseconds), Days, Months}}.
 
 type_spec() ->
-    "{interval {{Hours::integer(), Minutes::integer(), "
+    "infinity | '-infinity' | {interval {{Hours::integer(), Minutes::integer(), "
     "Seconds::integer()}, Days::integer(), months::integer()}}".
 
 %%
