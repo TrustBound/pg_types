@@ -10,7 +10,7 @@
 -include("pg_protocol.hrl").
 
 init(_Opts) ->
-    {[<<"bpcharsend">>, <<"textsend">>,
+    {[<<"bpcharsend">>, <<"textsend">>, <<"cstring_send">>,
       <<"varcharsend">>, <<"charsend">>,
       <<"byteasend">>, <<"unknownsend">>,
       <<"citextsend">>], []}.
