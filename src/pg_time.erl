@@ -14,6 +14,7 @@
 -define(MINS_PER_HOUR, 60).
 -define(SECS_PER_MINUTE, 60).
 -define(USECS_PER_SEC, 1000000).
+-define(USECS_PER_DAY, 86400000000).
 
 init(_Opts) ->
     {[<<"time_send">>], []}.
@@ -31,6 +32,9 @@ type_spec() ->
 
 %%
 
+%% PostgreSQL allows 24:00:00 as the end of a day, for time and timetz
+decode_time(<<?USECS_PER_DAY:?int64>>) ->
+    {24, 0, 0};
 decode_time(<<Time:?int64>>) ->
     Seconds = Time div 1000000,
     USecs = Time rem 1000000,
