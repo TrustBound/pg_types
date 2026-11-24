@@ -68,7 +68,9 @@ type_spec() ->
 
 %%
 
-decode_range(Flags, Bin, BaseTypeInfo=#type_info{module=Mod, typlen=Len}) ->
+%% each bound has its own length, which is not the typlen of the subtype:
+%% typlen is -1 for a type of variable length like numeric
+decode_range(Flags, Bin, BaseTypeInfo=#type_info{module=Mod}) ->
     {LowerBound, Rest} = case 0 =/= Flags band ?RANGE_LB_INF of
                              true -> {unbound, Bin};
                              _ ->
