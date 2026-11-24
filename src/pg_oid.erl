@@ -12,7 +12,7 @@
 -define(OID_MAX, 4294967295).
 
 init(_Opts) ->
-    {[<<"idsend">>, <<"regprocsend">>, <<"regproceduresend">>,
+    {[<<"oidsend">>, <<"regprocsend">>, <<"regproceduresend">>,
       <<"regopersend">>, <<"regoperatorsend">>, <<"regclasssend">>,
       <<"regtypesend">>, <<"xidsend">>, <<"cidsend">>], []}.
 
